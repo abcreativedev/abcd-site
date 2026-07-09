@@ -7,8 +7,17 @@
 <meta name="theme-color" content="#F5B800">
 <meta name="apple-mobile-web-app-title" content="Zonnebloem">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="description" content="Nederlandse prompt-bouwer: maak vier zinnen af en maak een sterke AI-prompt.">
-<title>Zonnebloem Generator</title>
+<title>Zonnebloem Generator 🌻</title>
+<meta name="description" content="Maak vier zinnen af en pluk een kant-en-klare AI-prompt. Speels, simpel en gratis.">
+<meta property="og:title" content="Zonnebloem Generator 🌻">
+<meta property="og:description" content="Maak vier zinnen af en pluk een kant-en-klare AI-prompt. Speels, simpel en gratis.">
+<meta property="og:image" content="https://abcreativedevelopment.nl/zonnebloem/preview.png">
+<meta property="og:url" content="https://abcreativedevelopment.nl/zonnebloem/">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="apple-touch-icon" href="/zonnebloem/icon-180.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/zonnebloem/favicon-32.png">
+<link rel="manifest" href="/zonnebloem/manifest.webmanifest">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-32 -32 64 64'%3E%3Cg%3E%3Cellipse cx='0' cy='-17' rx='6.5' ry='12' fill='%23F5B800' stroke='%23fff' stroke-width='1.5'/%3E%3Cellipse cx='0' cy='-17' rx='6.5' ry='12' transform='rotate(45)' fill='%23F5B800' stroke='%23fff' stroke-width='1.5'/%3E%3Cellipse cx='0' cy='-17' rx='6.5' ry='12' transform='rotate(90)' fill='%23F5B800' stroke='%23fff' stroke-width='1.5'/%3E%3Cellipse cx='0' cy='-17' rx='6.5' ry='12' transform='rotate(135)' fill='%23F5B800' stroke='%23fff' stroke-width='1.5'/%3E%3Cellipse cx='0' cy='-17' rx='6.5' ry='12' transform='rotate(180)' fill='%23F5B800' stroke='%23fff' stroke-width='1.5'/%3E%3Cellipse cx='0' cy='-17' rx='6.5' ry='12' transform='rotate(225)' fill='%23F5B800' stroke='%23fff' stroke-width='1.5'/%3E%3Cellipse cx='0' cy='-17' rx='6.5' ry='12' transform='rotate(270)' fill='%23F5B800' stroke='%23fff' stroke-width='1.5'/%3E%3Cellipse cx='0' cy='-17' rx='6.5' ry='12' transform='rotate(315)' fill='%23F5B800' stroke='%23fff' stroke-width='1.5'/%3E%3C/g%3E%3Ccircle cx='0' cy='0' r='12' fill='%236FA834' stroke='%23fff' stroke-width='2'/%3E%3Cpath d='M -9 -4 Q 0 6 9 -2' fill='none' stroke='%23fff' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E">
 <style>
   :root{
@@ -24,11 +33,27 @@
     padding:20px 14px 32px;
   }
   .wrap{width:100%;max-width:560px}
+  .topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px}
+  .home{
+    display:inline-flex;align-items:center;justify-content:center;
+    width:30px;height:30px;border-radius:8px;
+    color:var(--green-dark);background:var(--white);border:1.5px solid var(--line);
+    transition:all .2s;
+  }
+  .home:hover{background:var(--yellow-soft);border-color:var(--yellow)}
+  .langs{display:flex;gap:4px}
+  .lang{
+    font-family:inherit;font-size:12px;font-weight:700;letter-spacing:.04em;
+    color:var(--muted);background:var(--white);border:1.5px solid var(--line);
+    border-radius:8px;padding:5px 10px;cursor:pointer;transition:all .2s;
+  }
+  .lang.active{color:var(--green-dark);background:var(--yellow-soft);border-color:var(--yellow)}
   .head{display:flex;align-items:center;gap:12px;margin-bottom:6px}
   .eyebrow{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--green);font-weight:600;margin-bottom:2px}
   h1{font-family:Georgia,'Times New Roman',serif;font-weight:700;font-size:25px;line-height:1.1;color:var(--green-dark)}
   .intro{color:var(--muted);font-size:13.5px;line-height:1.45;margin:6px 0 16px}
   .intro b{color:var(--green-dark)}
+
   .blocks{display:flex;flex-direction:column;gap:8px}
   .block{
     background:var(--white);border:2px solid var(--line);border-radius:14px;
@@ -53,6 +78,7 @@
   }
   textarea::placeholder{color:#B8BE9C;font-style:italic}
   textarea:focus{border-color:var(--yellow)}
+
   .maak{
     display:block;width:100%;margin-top:12px;
     font-family:inherit;font-size:15.5px;font-weight:700;
@@ -61,6 +87,7 @@
     transition:background .25s, color .25s, border-color .25s;
   }
   .maak.ready{color:var(--green-dark);background:var(--yellow-soft);border-color:var(--yellow);cursor:pointer}
+
   .result{
     display:none;background:var(--white);border:2px solid var(--green);
     border-radius:14px;padding:14px;margin-top:12px;
@@ -74,107 +101,215 @@
   }
   .copy.ok{background:var(--green)}
   .r-text{font-size:14.5px;line-height:1.6;user-select:text;-webkit-user-select:text}
-  @media (prefers-reduced-motion: reduce){.block,.stepnum,.maak,.petal,.heart{transition:none}}
+  @media (prefers-reduced-motion: reduce){.block,.stepnum,.maak,.petal,.heart,.lang{transition:none}}
 </style>
 </head>
 <body>
 <div class="wrap">
+  <div class="topbar">
+    <a class="home" href="/" aria-label="Terug naar hoofdsite" title="abcreativedevelopment.nl">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11 L12 3 L21 11"/><path d="M5 10 V20 H10 V14 H14 V20 H19 V10"/></svg>
+    </a>
+    <div class="langs">
+      <button class="lang" data-lang="nl">NL</button>
+      <button class="lang" data-lang="en">EN</button>
+      <button class="lang" data-lang="pt">PT</button>
+    </div>
+  </div>
   <div class="head">
     <svg width="64" height="64" viewBox="-32 -32 64 64" aria-hidden="true" id="flower"></svg>
     <div>
-      <div class="eyebrow">Werken met AI</div>
+      <div class="eyebrow" id="eyebrow"></div>
       <h1>Zonnebloem Generator</h1>
     </div>
   </div>
-  <p class="intro">Maak de vier zinnen af — bij elk vakje groeit je zonnebloem. Druk daarna op <b>Maak prompt</b>, kopieer, en plak 'm in je chat.</p>
+  <p class="intro" id="intro"></p>
+
   <div class="blocks" id="blocks"></div>
-  <button class="maak" id="maakBtn">Eerst even zaaien hierboven 🌱</button>
+
+  <button class="maak" id="maakBtn"></button>
+
   <div class="result" id="result">
     <div class="r-head">
-      <div class="r-label">Jouw prompt — vers geplukt</div>
-      <button class="copy" id="copyBtn">Kopieer</button>
+      <div class="r-label" id="rLabel"></div>
+      <button class="copy" id="copyBtn"></button>
     </div>
     <div class="r-text" id="rText"></div>
   </div>
 </div>
+
 <script>
-const FIELDS = [
-  { key:"rol", step:"1", prefix:"Je bent een",
-    hint:"Kies je expert. Mag best een beetje gek, als het maar past.",
-    placeholder:"wereldberoemde chef-kok die óók van een snelle hap houdt" },
-  { key:"wil", step:"2", prefix:"Ik wil",
-    hint:"Zeg wat je écht wilt. AI kan veel, maar geen gedachten lezen.",
-    placeholder:"een weekmenu voor maandag tot en met vrijdag" },
-  { key:"voor", step:"3", prefix:"Het is bedoeld voor",
-    hint:"Voor wie is het? Dat scheelt een hoop moeilijke woorden (of juist niet).",
-    placeholder:"een druk gezin dat om 17:00 pas bedenkt wat het eten wordt" },
-  { key:"output", step:"4", prefix:"Ik verwacht als output",
-    hint:"Lijstje, tekstje, tabelletje? Zeg het, anders krijg je een verrassing.",
-    placeholder:"een vrolijk lijstje per dag, mét boodschappenlijstje erbij" },
-];
-const blocksEl = document.getElementById('blocks');
-FIELDS.forEach(f=>{
-  const div = document.createElement('div');
-  div.className = 'block';
-  div.id = 'blk-'+f.key;
-  div.innerHTML =
-    '<div class="b-head"><span class="stepnum">'+f.step+'</span>'+
-    '<span class="prefix">'+f.prefix+'&hellip;</span></div>'+
-    '<div class="hint">'+f.hint+'</div>'+
-    '<textarea id="in-'+f.key+'" rows="2" placeholder="bijv. '+f.placeholder+'"></textarea>';
-  blocksEl.appendChild(div);
-});
-// zonnebloem die groeit
-const flower = document.getElementById('flower');
+const I18N = {
+  nl: {
+    eyebrow: "Werken met AI",
+    intro: 'Maak de vier zinnen af — bij elk vakje groeit je zonnebloem. Druk daarna op <b>Maak prompt</b>, kopieer, en plak \u2019m in je chat.',
+    sow: "Eerst even zaaien hierboven 🌱",
+    make: "Maak prompt 🌻",
+    rLabel: "Jouw prompt — vers geplukt",
+    copy: "Kopieer",
+    copied: "Geplukt! 🌻",
+    copyFail: "Selecteer zelf",
+    fields: [
+      { key:"rol", prefix:"Je bent een",
+        hint:"Kies je expert. Mag best een beetje gek, als het maar past.",
+        placeholder:"bijv. wereldberoemde chef-kok die óók van een snelle hap houdt" },
+      { key:"wil", prefix:"Ik wil",
+        hint:"Zeg wat je écht wilt. AI kan veel, maar geen gedachten lezen.",
+        placeholder:"bijv. een weekmenu voor maandag tot en met vrijdag" },
+      { key:"voor", prefix:"Het is bedoeld voor",
+        hint:"Voor wie is het? Dat scheelt een hoop moeilijke woorden (of juist niet).",
+        placeholder:"bijv. een druk gezin dat om 17:00 pas bedenkt wat het eten wordt" },
+      { key:"output", prefix:"Ik verwacht als output",
+        hint:"Lijstje, tekstje, tabelletje? Zeg het, anders krijg je een verrassing.",
+        placeholder:"bijv. een vrolijk lijstje per dag, mét boodschappenlijstje erbij" },
+    ]
+  },
+  en: {
+    eyebrow: "Working with AI",
+    intro: 'Complete the four sentences — your sunflower grows with every box. Then hit <b>Make prompt</b>, copy, and paste it into your chat.',
+    sow: "First plant some seeds above 🌱",
+    make: "Make prompt 🌻",
+    rLabel: "Your prompt — freshly picked",
+    copy: "Copy",
+    copied: "Picked! 🌻",
+    copyFail: "Select manually",
+    fields: [
+      { key:"rol", prefix:"You are a",
+        hint:"Pick your expert. A little quirky is fine, as long as it fits.",
+        placeholder:"e.g. world-famous chef who also loves a quick bite" },
+      { key:"wil", prefix:"I want",
+        hint:"Say what you really want. AI can do a lot, but it can't read minds.",
+        placeholder:"e.g. a weekly menu for Monday through Friday" },
+      { key:"voor", prefix:"It is meant for",
+        hint:"Who is it for? Saves a lot of fancy words (or adds them).",
+        placeholder:"e.g. a busy family that starts thinking about dinner at 5 PM" },
+      { key:"output", prefix:"As output I expect",
+        hint:"A list, a text, a table? Say it, or you'll get a surprise.",
+        placeholder:"e.g. a cheerful list per day, shopping list included" },
+    ]
+  },
+  pt: {
+    eyebrow: "Trabalhando com IA",
+    intro: 'Complete as quatro frases — seu girassol cresce a cada caixinha. Depois aperte <b>Criar prompt</b>, copie e cole no seu chat.',
+    sow: "Primeiro plante as sementinhas aqui em cima 🌱",
+    make: "Criar prompt 🌻",
+    rLabel: "Seu prompt — colhido na hora",
+    copy: "Copiar",
+    copied: "Colhido! 🌻",
+    copyFail: "Selecione manualmente",
+    fields: [
+      { key:"rol", prefix:"Você é",
+        hint:"Escolha seu especialista. Pode ser meio maluco, desde que combine.",
+        placeholder:"ex. um chef famoso que também adora comida rápida" },
+      { key:"wil", prefix:"Eu quero",
+        hint:"Diga o que você quer de verdade. IA faz muita coisa, mas não lê mentes.",
+        placeholder:"ex. um cardápio semanal de segunda a sexta" },
+      { key:"voor", prefix:"É destinado a",
+        hint:"Para quem é? Isso poupa um monte de palavras difíceis (ou acrescenta).",
+        placeholder:"ex. uma família ocupada que só pensa no jantar às 17h" },
+      { key:"output", prefix:"Como resultado, espero",
+        hint:"Uma lista, um texto, uma tabela? Diga, senão vem surpresa.",
+        placeholder:"ex. uma listinha alegre por dia, com lista de compras" },
+    ]
+  }
+};
+
+let lang = "nl";
+try {
+  const saved = localStorage.getItem("zb-lang");
+  if (saved && I18N[saved]) lang = saved;
+  else {
+    const nav = (navigator.language || "nl").slice(0,2).toLowerCase();
+    if (I18N[nav]) lang = nav;
+  }
+} catch(e) {}
+
+const values = { rol:"", wil:"", voor:"", output:"" };
+let prompt = "";
+
+const blocksEl = document.getElementById("blocks");
+const flower = document.getElementById("flower");
+const maakBtn = document.getElementById("maakBtn");
+const result = document.getElementById("result");
+const rText = document.getElementById("rText");
+const rLabel = document.getElementById("rLabel");
+const copyBtn = document.getElementById("copyBtn");
+
+function dot(t){ return /[.!?]$/.test(t.trim()) ? "" : "."; }
+function T(){ return I18N[lang]; }
+
 function drawFlower(filled){
-  let s = '';
+  let s = "";
   const lit = filled*2;
   for(let i=0;i<8;i++){
-    const angle = i*45;
-    const fill = i<lit ? '#F5B800' : '#EDE4C4';
-    s += '<ellipse class="petal" cx="0" cy="-17" rx="6.5" ry="12" transform="rotate('+angle+')" fill="'+fill+'" stroke="#fff" stroke-width="1.5" style="transition:fill .4s"/>';
+    const fill = i<lit ? "#F5B800" : "#EDE4C4";
+    s += '<ellipse class="petal" cx="0" cy="-17" rx="6.5" ry="12" transform="rotate('+(i*45)+')" fill="'+fill+'" stroke="#fff" stroke-width="1.5" style="transition:fill .4s"/>';
   }
-  s += '<circle class="heart" cx="0" cy="0" r="12" fill="'+(filled===4?'#6FA834':'#B9C48F')+'" stroke="#fff" stroke-width="2" style="transition:fill .4s"/>';
+  s += '<circle class="heart" cx="0" cy="0" r="12" fill="'+(filled===4?"#6FA834":"#B9C48F")+'" stroke="#fff" stroke-width="2" style="transition:fill .4s"/>';
   s += '<path d="M -9 -4 Q 0 6 9 -2" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"/>';
   flower.innerHTML = s;
 }
-const maakBtn = document.getElementById('maakBtn');
-const result = document.getElementById('result');
-const rText = document.getElementById('rText');
-const copyBtn = document.getElementById('copyBtn');
-let prompt = '';
-function dot(t){ return /[.!?]$/.test(t.trim()) ? '' : '.'; }
+
 function filledCount(){
-  return FIELDS.filter(f=>document.getElementById('in-'+f.key).value.trim()).length;
+  return T().fields.filter(f=>values[f.key].trim()).length;
 }
+
+function renderTexts(){
+  document.documentElement.lang = lang === "pt" ? "pt-BR" : lang;
+  document.getElementById("eyebrow").textContent = T().eyebrow;
+  document.getElementById("intro").innerHTML = T().intro;
+  rLabel.textContent = T().rLabel;
+  copyBtn.textContent = T().copy;
+  copyBtn.classList.remove("ok");
+  document.querySelectorAll(".lang").forEach(b=>{
+    b.classList.toggle("active", b.dataset.lang === lang);
+  });
+  blocksEl.innerHTML = "";
+  T().fields.forEach((f, i)=>{
+    const div = document.createElement("div");
+    div.className = "block";
+    div.id = "blk-"+f.key;
+    div.innerHTML =
+      '<div class="b-head"><span class="stepnum">'+(i+1)+'</span>'+
+      '<span class="prefix">'+f.prefix+'&hellip;</span></div>'+
+      '<div class="hint">'+f.hint+'</div>'+
+      '<textarea id="in-'+f.key+'" rows="2" placeholder="'+f.placeholder+'"></textarea>';
+    blocksEl.appendChild(div);
+    const ta = div.querySelector("textarea");
+    ta.value = values[f.key];
+    ta.addEventListener("input", ()=>{ values[f.key] = ta.value; refresh(); });
+  });
+  result.classList.remove("show");
+  prompt = "";
+  refresh();
+}
+
 function refresh(){
   const n = filledCount();
-  FIELDS.forEach(f=>{
-    const has = document.getElementById('in-'+f.key).value.trim().length>0;
-    document.getElementById('blk-'+f.key).classList.toggle('filled', has);
+  T().fields.forEach(f=>{
+    document.getElementById("blk-"+f.key).classList.toggle("filled", values[f.key].trim().length>0);
   });
   drawFlower(n);
-  maakBtn.classList.toggle('ready', n>0);
-  maakBtn.textContent = n===0 ? 'Eerst even zaaien hierboven 🌱' : 'Maak prompt 🌻';
+  maakBtn.classList.toggle("ready", n>0);
+  maakBtn.textContent = n===0 ? T().sow : T().make;
 }
-FIELDS.forEach(f=>{
-  document.getElementById('in-'+f.key).addEventListener('input', refresh);
-});
-maakBtn.addEventListener('click', ()=>{
+
+maakBtn.addEventListener("click", ()=>{
   if(filledCount()===0) return;
-  const parts = FIELDS
-    .filter(f=>document.getElementById('in-'+f.key).value.trim())
+  const parts = T().fields
+    .filter(f=>values[f.key].trim())
     .map(f=>{
-      const v = document.getElementById('in-'+f.key).value.trim();
-      return f.prefix+' '+v+dot(v);
+      const v = values[f.key].trim();
+      return f.prefix+" "+v+dot(v);
     });
-  prompt = parts.join(' ');
+  prompt = parts.join(" ");
   rText.textContent = prompt;
-  result.classList.add('show');
-  copyBtn.textContent = 'Kopieer';
-  copyBtn.classList.remove('ok');
+  result.classList.add("show");
+  copyBtn.textContent = T().copy;
+  copyBtn.classList.remove("ok");
 });
-copyBtn.addEventListener('click', async ()=>{
+
+copyBtn.addEventListener("click", async ()=>{
   if(!prompt) return;
   let ok = false;
   try{
@@ -182,20 +317,29 @@ copyBtn.addEventListener('click', async ()=>{
     ok = true;
   }catch(e){
     try{
-      const ta = document.createElement('textarea');
+      const ta = document.createElement("textarea");
       ta.value = prompt;
-      ta.style.position='fixed'; ta.style.opacity='0';
+      ta.style.position="fixed"; ta.style.opacity="0";
       document.body.appendChild(ta);
       ta.select();
-      ok = document.execCommand('copy');
+      ok = document.execCommand("copy");
       document.body.removeChild(ta);
     }catch(_){}
   }
-  copyBtn.textContent = ok ? 'Geplukt! 🌻' : 'Selecteer zelf';
-  copyBtn.classList.toggle('ok', ok);
-  setTimeout(()=>{ copyBtn.textContent='Kopieer'; copyBtn.classList.remove('ok'); }, 2200);
+  copyBtn.textContent = ok ? T().copied : T().copyFail;
+  copyBtn.classList.toggle("ok", ok);
+  setTimeout(()=>{ copyBtn.textContent=T().copy; copyBtn.classList.remove("ok"); }, 2200);
 });
-refresh();
+
+document.querySelectorAll(".lang").forEach(b=>{
+  b.addEventListener("click", ()=>{
+    lang = b.dataset.lang;
+    try { localStorage.setItem("zb-lang", lang); } catch(e) {}
+    renderTexts();
+  });
+});
+
+renderTexts();
 </script>
 </body>
 </html>
