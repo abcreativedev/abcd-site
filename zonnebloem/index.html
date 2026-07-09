@@ -112,17 +112,17 @@
   }
   .result.show{display:block}
   .r-label{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--green);font-weight:700;margin-bottom:8px}
-  .r-actions{display:flex;gap:6px;margin-top:12px;flex-wrap:wrap}
-  .copy{
-    font-family:inherit;font-size:12.5px;font-weight:700;color:var(--white);
-    background:var(--green-dark);border:none;border-radius:8px;padding:8px 14px;cursor:pointer;
+  .r-actions{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+  .iconbtn{
+    width:40px;height:40px;border-radius:11px;
+    display:inline-flex;align-items:center;justify-content:center;
+    background:var(--white);border:1.5px solid var(--green);
+    color:var(--green-dark);cursor:pointer;text-decoration:none;
+    font-family:inherit;transition:all .2s;
   }
-  .copy.ok{background:var(--green)}
-  .share{
-    font-family:inherit;font-size:12.5px;font-weight:700;text-decoration:none;
-    color:var(--green-dark);background:var(--white);border:1.5px solid var(--green);
-    border-radius:8px;padding:7px 13px;display:inline-flex;align-items:center;gap:5px;
-  }
+  .iconbtn:hover{background:var(--yellow-soft);border-color:var(--yellow)}
+  .iconbtn img{width:22px;height:22px;display:block}
+  .iconbtn.ok{background:var(--green);border-color:var(--green);color:var(--white)}
   .r-text{font-size:14.5px;line-height:1.6;user-select:text;-webkit-user-select:text}
   @media (prefers-reduced-motion: reduce){.block,.stepnum,.maak,.petal,.heart,.lang{transition:none}}
 </style>
@@ -168,9 +168,18 @@
     <div class="r-label" id="rLabel"></div>
     <div class="r-text" id="rText"></div>
     <div class="r-actions">
-      <button class="copy" id="copyBtn"></button>
-      <a class="share" id="waBtn" target="_blank" rel="noopener">WhatsApp</a>
-      <a class="share" id="gptBtn" target="_blank" rel="noopener">ChatGPT</a>
+      <button class="iconbtn" id="copyBtn" title="Kopieer" aria-label="Kopieer">
+        <svg id="copyIcon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15 H4 a2 2 0 0 1 -2 -2 V4 a2 2 0 0 1 2 -2 h9 a2 2 0 0 1 2 2 v1"/></svg>
+      </button>
+      <a class="iconbtn" id="waBtn" target="_blank" rel="noopener" title="WhatsApp" aria-label="Deel via WhatsApp">
+        <svg width="21" height="21" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      </a>
+      <a class="iconbtn" id="gptBtn" target="_blank" rel="noopener" title="Open in ChatGPT" aria-label="Open in ChatGPT">
+        <img src="https://www.google.com/s2/favicons?domain=chatgpt.com&amp;sz=64" alt="ChatGPT">
+      </a>
+      <a class="iconbtn" id="claudeBtn" target="_blank" rel="noopener" title="Open in Claude" aria-label="Open in Claude">
+        <img src="https://www.google.com/s2/favicons?domain=claude.ai&amp;sz=64" alt="Claude">
+      </a>
     </div>
   </div>
 </div>
@@ -277,6 +286,10 @@ const values = { rol:"", wil:"", voor:"", output:"" };
 let prompt = "";
 let detail = "kort";
 
+const ICON_COPY = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15 H4 a2 2 0 0 1 -2 -2 V4 a2 2 0 0 1 2 -2 h9 a2 2 0 0 1 2 2 v1"/></svg>';
+const ICON_CHECK = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 L10 18.5 L20 6.5"/></svg>';
+const ICON_FAIL = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5 v9"/><circle cx="12" cy="18.5" r="0.6" fill="currentColor"/></svg>';
+
 const blocksEl = document.getElementById("blocks");
 const flower = document.getElementById("flower");
 const maakBtn = document.getElementById("maakBtn");
@@ -289,6 +302,7 @@ const segKort = document.getElementById("segKort");
 const segLang = document.getElementById("segLang");
 const waBtn = document.getElementById("waBtn");
 const gptBtn = document.getElementById("gptBtn");
+const claudeBtn = document.getElementById("claudeBtn");
 
 function dot(t){ return /[.!?]$/.test(t.trim()) ? "" : "."; }
 function T(){ return I18N[lang]; }
@@ -314,7 +328,9 @@ function renderTexts(){
   document.getElementById("eyebrow").textContent = T().eyebrow;
   document.getElementById("intro").innerHTML = T().intro;
   rLabel.textContent = T().rLabel;
-  copyBtn.textContent = T().copy;
+  copyBtn.title = T().copy;
+  copyBtn.setAttribute("aria-label", T().copy);
+  copyBtn.innerHTML = ICON_COPY;
   copyBtn.classList.remove("ok");
   dLabel.textContent = T().dLabel;
   segKort.textContent = T().dKort;
@@ -366,8 +382,10 @@ function buildPrompt(){
   rText.textContent = prompt;
   waBtn.href = "https://wa.me/?text=" + encodeURIComponent(prompt);
   gptBtn.href = "https://chatgpt.com/?q=" + encodeURIComponent(prompt);
+  claudeBtn.href = "https://claude.ai/new?q=" + encodeURIComponent(prompt);
   result.classList.add("show");
-  copyBtn.textContent = T().copy;
+  copyBtn.innerHTML = ICON_COPY;
+  copyBtn.title = T().copy;
   copyBtn.classList.remove("ok");
 }
 
@@ -402,9 +420,10 @@ copyBtn.addEventListener("click", async ()=>{
       document.body.removeChild(ta);
     }catch(_){}
   }
-  copyBtn.textContent = ok ? T().copied : T().copyFail;
+  copyBtn.innerHTML = ok ? ICON_CHECK : ICON_FAIL;
+  copyBtn.title = ok ? T().copied : T().copyFail;
   copyBtn.classList.toggle("ok", ok);
-  setTimeout(()=>{ copyBtn.textContent=T().copy; copyBtn.classList.remove("ok"); }, 2200);
+  setTimeout(()=>{ copyBtn.innerHTML=ICON_COPY; copyBtn.title=T().copy; copyBtn.classList.remove("ok"); }, 2200);
 });
 
 document.querySelectorAll(".lang").forEach(b=>{
