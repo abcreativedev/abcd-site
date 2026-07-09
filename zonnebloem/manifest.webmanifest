@@ -1,1 +1,1 @@
-
+{"name": "Zonnebloem Generator", "short_name": "Zonnebloem", "description": "Maak vier zinnen af en pluk een kant-en-klare AI-prompt.", "start_url": "/zonnebloem/", "scope": "/zonnebloem/", "display": "standalone", "background_color": "#FFFDF4", "theme_color": "#F5B800", "icons": [{ "src": "/zonnebloem/icon-192.png", "sizes": "192x192", "type": "image/png" }, { "src": "/zonnebloem/icon-512.png", "sizes": "512x512", "type": "image/png" }]}
