@@ -33,7 +33,17 @@
     padding:20px 14px 32px;
   }
   .wrap{width:100%;max-width:560px}
-  .topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px}
+  .head{display:flex;align-items:center;gap:12px;margin-bottom:6px;flex-wrap:wrap}
+  .titles{flex:1;min-width:170px}
+  .controls{display:flex;gap:4px;align-items:center;margin-left:auto}
+  .lang{
+    display:inline-flex;align-items:center;justify-content:center;
+    height:30px;padding:0 6px;line-height:0;
+    background:var(--white);border:1.5px solid var(--line);
+    border-radius:8px;cursor:pointer;transition:all .2s;
+  }
+  .lang svg{border-radius:2px;display:block}
+  .lang.active{background:var(--yellow-soft);border-color:var(--yellow)}
   .home{
     display:inline-flex;align-items:center;justify-content:center;
     width:30px;height:30px;border-radius:8px;
@@ -41,14 +51,12 @@
     transition:all .2s;
   }
   .home:hover{background:var(--yellow-soft);border-color:var(--yellow)}
-  .langs{display:flex;gap:4px}
   .lang{
     font-family:inherit;font-size:12px;font-weight:700;letter-spacing:.04em;
     color:var(--muted);background:var(--white);border:1.5px solid var(--line);
     border-radius:8px;padding:5px 10px;cursor:pointer;transition:all .2s;
   }
   .lang.active{color:var(--green-dark);background:var(--yellow-soft);border-color:var(--yellow)}
-  .head{display:flex;align-items:center;gap:12px;margin-bottom:6px}
   .eyebrow{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--green);font-weight:600;margin-bottom:2px}
   h1{font-family:Georgia,'Times New Roman',serif;font-weight:700;font-size:25px;line-height:1.1;color:var(--green-dark)}
   .intro{color:var(--muted);font-size:13.5px;line-height:1.45;margin:6px 0 16px}
@@ -88,53 +96,82 @@
   }
   .maak.ready{color:var(--green-dark);background:var(--yellow-soft);border-color:var(--yellow);cursor:pointer}
 
+  .detail{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:12px}
+  .d-label{font-size:13px;font-weight:700;color:var(--green-dark)}
+  .seg{display:flex;gap:4px}
+  .segbtn{
+    font-family:inherit;font-size:12.5px;font-weight:700;color:var(--muted);
+    background:var(--white);border:1.5px solid var(--line);border-radius:8px;
+    padding:6px 12px;cursor:pointer;transition:all .2s;
+  }
+  .segbtn.active{color:var(--green-dark);background:var(--yellow-soft);border-color:var(--yellow)}
+
   .result{
     display:none;background:var(--white);border:2px solid var(--green);
     border-radius:14px;padding:14px;margin-top:12px;
   }
   .result.show{display:block}
-  .r-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
-  .r-label{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--green);font-weight:700}
+  .r-label{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--green);font-weight:700;margin-bottom:8px}
+  .r-actions{display:flex;gap:6px;margin-top:12px;flex-wrap:wrap}
   .copy{
     font-family:inherit;font-size:12.5px;font-weight:700;color:var(--white);
-    background:var(--green-dark);border:none;border-radius:8px;padding:7px 12px;cursor:pointer;
+    background:var(--green-dark);border:none;border-radius:8px;padding:8px 14px;cursor:pointer;
   }
   .copy.ok{background:var(--green)}
+  .share{
+    font-family:inherit;font-size:12.5px;font-weight:700;text-decoration:none;
+    color:var(--green-dark);background:var(--white);border:1.5px solid var(--green);
+    border-radius:8px;padding:7px 13px;display:inline-flex;align-items:center;gap:5px;
+  }
   .r-text{font-size:14.5px;line-height:1.6;user-select:text;-webkit-user-select:text}
   @media (prefers-reduced-motion: reduce){.block,.stepnum,.maak,.petal,.heart,.lang{transition:none}}
 </style>
 </head>
 <body>
 <div class="wrap">
-  <div class="topbar">
-    <a class="home" href="/" aria-label="Terug naar hoofdsite" title="abcreativedevelopment.nl">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11 L12 3 L21 11"/><path d="M5 10 V20 H10 V14 H14 V20 H19 V10"/></svg>
-    </a>
-    <div class="langs">
-      <button class="lang" data-lang="nl">NL</button>
-      <button class="lang" data-lang="en">EN</button>
-      <button class="lang" data-lang="pt">PT</button>
-    </div>
-  </div>
   <div class="head">
     <svg width="64" height="64" viewBox="-32 -32 64 64" aria-hidden="true" id="flower"></svg>
-    <div>
+    <div class="titles">
       <div class="eyebrow" id="eyebrow"></div>
       <h1>Zonnebloem Generator</h1>
+    </div>
+    <div class="controls">
+      <button class="lang" data-lang="nl" aria-label="Nederlands" title="Nederlands">
+        <svg width="24" height="16" viewBox="0 0 24 16"><rect width="24" height="16" fill="#21468B"/><rect width="24" height="10.7" fill="#FFFFFF"/><rect width="24" height="5.3" fill="#AE1C28"/></svg>
+      </button>
+      <button class="lang" data-lang="en" aria-label="English" title="English">
+        <svg width="24" height="16" viewBox="0 0 24 16"><rect width="24" height="16" fill="#012169"/><path d="M0,0 L24,16 M24,0 L0,16" stroke="#FFFFFF" stroke-width="3.2"/><path d="M0,0 L24,16 M24,0 L0,16" stroke="#C8102E" stroke-width="1.6"/><rect x="9.6" width="4.8" height="16" fill="#FFFFFF"/><rect y="5.6" width="24" height="4.8" fill="#FFFFFF"/><rect x="10.8" width="2.4" height="16" fill="#C8102E"/><rect y="6.8" width="24" height="2.4" fill="#C8102E"/></svg>
+      </button>
+      <button class="lang" data-lang="pt" aria-label="Português (Brasil)" title="Português (Brasil)">
+        <svg width="24" height="16" viewBox="0 0 24 16"><rect width="24" height="16" fill="#009C3B"/><polygon points="12,1.8 21.5,8 12,14.2 2.5,8" fill="#FFDF00"/><circle cx="12" cy="8" r="3.9" fill="#002776"/><path d="M8.6,7.1 Q12,6.2 15.4,8.4" fill="none" stroke="#FFFFFF" stroke-width="0.9"/></svg>
+      </button>
+      <a class="home" href="/" aria-label="Terug naar hoofdsite" title="abcreativedevelopment.nl">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11 L12 3 L21 11"/><path d="M5 10 V20 H10 V14 H14 V20 H19 V10"/></svg>
+      </a>
     </div>
   </div>
   <p class="intro" id="intro"></p>
 
   <div class="blocks" id="blocks"></div>
 
+  <div class="detail">
+    <span class="d-label" id="dLabel"></span>
+    <div class="seg">
+      <button class="segbtn" data-detail="kort" id="segKort"></button>
+      <button class="segbtn" data-detail="lang" id="segLang"></button>
+    </div>
+  </div>
+
   <button class="maak" id="maakBtn"></button>
 
   <div class="result" id="result">
-    <div class="r-head">
-      <div class="r-label" id="rLabel"></div>
-      <button class="copy" id="copyBtn"></button>
-    </div>
+    <div class="r-label" id="rLabel"></div>
     <div class="r-text" id="rText"></div>
+    <div class="r-actions">
+      <button class="copy" id="copyBtn"></button>
+      <a class="share" id="waBtn" target="_blank" rel="noopener">WhatsApp</a>
+      <a class="share" id="gptBtn" target="_blank" rel="noopener">ChatGPT</a>
+    </div>
   </div>
 </div>
 
@@ -149,6 +186,10 @@ const I18N = {
     copy: "Kopieer",
     copied: "Geplukt! 🌻",
     copyFail: "Selecteer zelf",
+    dLabel: "Hoe lang mag het antwoord zijn?",
+    dKort: "Beknopt",
+    dLang: "Gedetailleerd",
+    dTxt: { kort: "Houd het antwoord kort en bondig.", lang: "Geef een uitgebreid en gedetailleerd antwoord." },
     fields: [
       { key:"rol", prefix:"Je bent een",
         hint:"Kies je expert. Mag best een beetje gek, als het maar past.",
@@ -173,6 +214,10 @@ const I18N = {
     copy: "Copy",
     copied: "Picked! 🌻",
     copyFail: "Select manually",
+    dLabel: "How long should the answer be?",
+    dKort: "Concise",
+    dLang: "Detailed",
+    dTxt: { kort: "Keep the answer short and to the point.", lang: "Give an extensive, detailed answer." },
     fields: [
       { key:"rol", prefix:"You are a",
         hint:"Pick your expert. A little quirky is fine, as long as it fits.",
@@ -197,6 +242,10 @@ const I18N = {
     copy: "Copiar",
     copied: "Colhido! 🌻",
     copyFail: "Selecione manualmente",
+    dLabel: "Qual o tamanho da resposta?",
+    dKort: "Curta",
+    dLang: "Detalhada",
+    dTxt: { kort: "Mantenha a resposta curta e direta.", lang: "Dê uma resposta completa e detalhada." },
     fields: [
       { key:"rol", prefix:"Você é",
         hint:"Escolha seu especialista. Pode ser meio maluco, desde que combine.",
@@ -226,6 +275,7 @@ try {
 
 const values = { rol:"", wil:"", voor:"", output:"" };
 let prompt = "";
+let detail = "kort";
 
 const blocksEl = document.getElementById("blocks");
 const flower = document.getElementById("flower");
@@ -234,6 +284,11 @@ const result = document.getElementById("result");
 const rText = document.getElementById("rText");
 const rLabel = document.getElementById("rLabel");
 const copyBtn = document.getElementById("copyBtn");
+const dLabel = document.getElementById("dLabel");
+const segKort = document.getElementById("segKort");
+const segLang = document.getElementById("segLang");
+const waBtn = document.getElementById("waBtn");
+const gptBtn = document.getElementById("gptBtn");
 
 function dot(t){ return /[.!?]$/.test(t.trim()) ? "" : "."; }
 function T(){ return I18N[lang]; }
@@ -261,6 +316,11 @@ function renderTexts(){
   rLabel.textContent = T().rLabel;
   copyBtn.textContent = T().copy;
   copyBtn.classList.remove("ok");
+  dLabel.textContent = T().dLabel;
+  segKort.textContent = T().dKort;
+  segLang.textContent = T().dLang;
+  segKort.classList.toggle("active", detail === "kort");
+  segLang.classList.toggle("active", detail === "lang");
   document.querySelectorAll(".lang").forEach(b=>{
     b.classList.toggle("active", b.dataset.lang === lang);
   });
@@ -273,7 +333,7 @@ function renderTexts(){
       '<div class="b-head"><span class="stepnum">'+(i+1)+'</span>'+
       '<span class="prefix">'+f.prefix+'&hellip;</span></div>'+
       '<div class="hint">'+f.hint+'</div>'+
-      '<textarea id="in-'+f.key+'" rows="2" placeholder="'+f.placeholder+'"></textarea>';
+      '<textarea id="in-'+f.key+'" rows="2" autocapitalize="off" placeholder="'+f.placeholder+'"></textarea>';
     blocksEl.appendChild(div);
     const ta = div.querySelector("textarea");
     ta.value = values[f.key];
@@ -294,19 +354,35 @@ function refresh(){
   maakBtn.textContent = n===0 ? T().sow : T().make;
 }
 
-maakBtn.addEventListener("click", ()=>{
-  if(filledCount()===0) return;
+function buildPrompt(){
   const parts = T().fields
     .filter(f=>values[f.key].trim())
     .map(f=>{
       const v = values[f.key].trim();
       return f.prefix+" "+v+dot(v);
     });
+  parts.push(T().dTxt[detail]);
   prompt = parts.join(" ");
   rText.textContent = prompt;
+  waBtn.href = "https://wa.me/?text=" + encodeURIComponent(prompt);
+  gptBtn.href = "https://chatgpt.com/?q=" + encodeURIComponent(prompt);
   result.classList.add("show");
   copyBtn.textContent = T().copy;
   copyBtn.classList.remove("ok");
+}
+
+maakBtn.addEventListener("click", ()=>{
+  if(filledCount()===0) return;
+  buildPrompt();
+});
+
+[segKort, segLang].forEach(b=>{
+  b.addEventListener("click", ()=>{
+    detail = b.dataset.detail;
+    segKort.classList.toggle("active", detail === "kort");
+    segLang.classList.toggle("active", detail === "lang");
+    if(prompt && filledCount()>0) buildPrompt();
+  });
 });
 
 copyBtn.addEventListener("click", async ()=>{
