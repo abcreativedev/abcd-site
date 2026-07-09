@@ -1,65 +1,60 @@
 <!doctype html>
 <html lang="nl">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpolygon points='50,6 90,29 90,71 50,94 10,71 10,29' fill='%23F8F5EF' stroke='%23173F35' stroke-width='7' stroke-linejoin='round'/%3E%3C/svg%3E">
-    <title>ABCD · Creative Development</title>
-  <meta name="description" content="ABCD - Anne van den Bosch Creative Development. Design · Experience · Family.">
-  <style>
-    *{margin:0;padding:0;box-sizing:border-box}
-    body{background:#F8F5EF;color:#173F35;font-family:'Inter','Segoe UI',system-ui,sans-serif;min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative}
-    .bg{position:fixed;pointer-events:none}
-    main{text-align:center;padding:40px;position:relative;z-index:1}
-    .hex{margin:0 auto 36px}
-    .letters{font-weight:600;fill:#173F35}
-    .wordmark{color:#C6A15B;font-size:24px;letter-spacing:5px;font-weight:500;margin-bottom:28px;line-height:1.8}
-    .line{width:48px;height:2px;background:#C6A15B;margin:0 auto 32px}
-    .rol{font-size:21px;letter-spacing:2px;color:#173F35;margin-bottom:30px}
-    .rol b{color:#C6A15B;font-weight:600;padding:0 6px}
-    .dots{display:flex;gap:14px;justify-content:center;margin-bottom:44px}
-    .dots span{width:8px;height:8px;border-radius:50%;opacity:.55}
-    footer{font-size:11px;letter-spacing:2px;opacity:.5;line-height:2.4}
-    footer a{color:inherit;text-decoration:none}
-    footer a:hover{text-decoration:underline}
-    </style>
-  </head>
-  <body>
-    <main>
-      <svg class="hex" width="220" height="220" viewBox="0 0 100 100"><polygon points="50,3 93,26.5 93,73.5 50,97 7,73.5 7,26.5" fill="none" stroke="#173F35" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"/><text x="35" y="41" text-anchor="middle" class="letters" font-size="22">A</text>text><text x="65" y="41" text-anchor="middle" class="letters" font-size="22">B</text>text><text x="35" y="73" text-anchor="middle" class="letters" font-size="22">C</text>text><text x="65" y="73" text-anchor="middle" class="letters" font-size="22">D</text>text></svg>svg>
-      <p class="wordmark">ANNE VAN DEN BOSCH<br>CREATIVE DEVELOPMENT</p>p>
-      <div class="line"></div>div>
-      <p class="rol">Design<b>&middot;</b>Experience<b>&middot;</b>Family</p>p>
-    <div class="dots"><span style="background:#C85A42"></span>span><span style="background:#E5A949"></span>span><span style="background:#8DAD6F"></span>span><span style="background:#2D968C"></span>span><span style="background:#4C7AB8"></span>span><span style="background:#9868A2"></span>span></div>div>
-    <footer><a href="mailto:info@abcreativedevelopment.nl">info@abcreativedevelopment.nl</a>a><br>KVK [NUMMER VOLGT]</footer>
-    </main>
-  <script>
-    let s=36;
-    const rnd=()=>{s=Math.sin(s)*10000;return s-Math.floor(s);};
-    const P='50,3 93,26.5 93,73.5 50,97 7,73.5 7,26.5';
-    let i=0;
-    for(let r=0;r<7&&i<35;r++){
-      for(let c=0;c<9&&i<35;c++){
-        if(c>=3&&c<=5&&r>=1&&r<=5){continue;}
-        i++;
-        const size=(2.5+rnd()*rnd()*7).toFixed(1);
-        const left=(c*11.1+0.5+rnd()*3).toFixed(1);
-        const top=(r*14.3+0.5+rnd()*4).toFixed(1);
-        const kleur=rnd()>.5?'#C6A15B':'#173F35';
-        const op=(0.05+rnd()*0.05).toFixed(3);
-        const el=document.createElementNS('http://www.w3.org/2000/svg','svg');
-        el.setAttribute('class','bg');
-        el.setAttribute('viewBox','0 0 100 100');
-        el.setAttribute('style','left:'+left+'vw;top:'+top+'vh;width:'+size+'vmin;height:'+size+'vmin');
-        el.innerHTML='<polygon points="'+P+'" fill="none" stroke="'+kleur+'" stroke-opacity="'+op+'" stroke-width="1.5"/>';
-        document.body.insertBefore(el,document.querySelector('main'));
-      }
-    }
-  </script>
-  </body>
-</html>html>
-  </script></footer></b></b>
-    </main>
-  </body>
-  </style></title>
-  </head>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpolygon points='50,6 90,29 90,71 50,94 10,71 10,29' fill='%23F8F5EF' stroke='%23173F35' stroke-width='7' stroke-linejoin='round'/%3E%3C/svg%3E">
+<title>ABCD · Creative Development</title>
+<meta name="description" content="ABCD - Anne van den Bosch Creative Development. Design · Experience · Family.">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#F8F5EF;color:#173F35;font-family:'Inter','Segoe UI',system-ui,sans-serif;min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative}
+.bg{position:fixed;pointer-events:none}
+main{text-align:center;padding:40px;position:relative;z-index:1}
+.hex{margin:0 auto 36px}
+.letters{font-weight:600;fill:#173F35}
+.wordmark{color:#C6A15B;font-size:24px;letter-spacing:5px;font-weight:500;margin-bottom:28px;line-height:1.8}
+.line{width:48px;height:2px;background:#C6A15B;margin:0 auto 32px}
+.rol{font-size:21px;letter-spacing:2px;color:#173F35;margin-bottom:30px}
+.rol b{color:#C6A15B;font-weight:600;padding:0 6px}
+.dots{display:flex;gap:14px;justify-content:center;margin-bottom:44px}
+.dots span{width:8px;height:8px;border-radius:50%;opacity:.55}
+footer{font-size:11px;letter-spacing:2px;opacity:.5;line-height:2.4}
+footer a{color:inherit;text-decoration:none}
+footer a:hover{text-decoration:underline}
+</style>
+</head>
+<body>
+<main>
+<svg class="hex" width="220" height="220" viewBox="0 0 100 100"><polygon points="50,3 93,26.5 93,73.5 50,97 7,73.5 7,26.5" fill="none" stroke="#173F35" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"/><text x="35" y="41" text-anchor="middle" class="letters" font-size="22">A</text><text x="65" y="41" text-anchor="middle" class="letters" font-size="22">B</text><text x="35" y="73" text-anchor="middle" class="letters" font-size="22">C</text><text x="65" y="73" text-anchor="middle" class="letters" font-size="22">D</text></svg>
+<p class="wordmark">ANNE VAN DEN BOSCH<br>CREATIVE DEVELOPMENT</p>
+<div class="line"></div>
+<p class="rol">Design<b>&middot;</b>Experience<b>&middot;</b>Family</p>
+<div class="dots"><span style="background:#C85A42"></span><span style="background:#E5A949"></span><span style="background:#8DAD6F"></span><span style="background:#2D968C"></span><span style="background:#4C7AB8"></span><span style="background:#9868A2"></span></div>
+<footer><a href="mailto:info@abcreativedevelopment.nl">info@abcreativedevelopment.nl</a><br>KVK [NUMMER VOLGT]</footer>
+</main>
+<script>
+let s=36;
+const rnd=()=>{s=Math.sin(s)*10000;return s-Math.floor(s);};
+const P='50,3 93,26.5 93,73.5 50,97 7,73.5 7,26.5';
+let i=0;
+for(let r=0;r<7&&i<35;r++){
+for(let c=0;c<9&&i<35;c++){
+if(c>=3&&c<=5&&r>=1&&r<=5){continue;}
+i++;
+const size=(2.5+rnd()*rnd()*7).toFixed(1);
+const left=(c*11.1+0.5+rnd()*3).toFixed(1);
+const top=(r*14.3+0.5+rnd()*4).toFixed(1);
+const kleur=rnd()>.5?'#C6A15B':'#173F35';
+const op=(0.05+rnd()*0.05).toFixed(3);
+const el=document.createElementNS('http://www.w3.org/2000/svg','svg');
+el.setAttribute('class','bg');
+el.setAttribute('viewBox','0 0 100 100');
+el.setAttribute('style','left:'+left+'vw;top:'+top+'vh;width:'+size+'vmin;height:'+size+'vmin');
+el.innerHTML='<polygon points="'+P+'" fill="none" stroke="'+kleur+'" stroke-opacity="'+op+'" stroke-width="1.5"/>';
+document.body.insertBefore(el,document.querySelector('main'));
+}
+}
+</script>
+</body>
+</html>
