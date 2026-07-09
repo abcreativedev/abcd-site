@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#F5B800">
+<meta name="apple-mobile-web-app-title" content="Zonnebloem">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="description" content="Nederlandse prompt-bouwer: maak vier zinnen af en pluk een sterke AI-prompt.">
+<title>Zonnebloem Generator</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-32 -32 64 64'%3E%3Cg%3E%3Cellipse cx='0' cy='-17' rx='6.5' ry='12' fill='%23F5B800' stroke='%23fff' stroke-width='1.5'/%3E%3Cellipse cx='0' cy='-17' rx='6.5' ry='12' transform='rotate(45)' fill='%23F5B800' stroke='%23fff' stroke-width='1.5'/%3E%3Cellipse cx='0' cy='-17' rx='6.5' ry='12' transform='rotate(90)' fill='%23F5B800' stroke='%23fff' stroke-width='1.5'/%3E%3Cellipse cx='0' cy='-17' rx='6.5' ry='12' transform='rotate(135)' fill='%23F5B800' stroke='%23fff' stroke-width='1.5'/%3E%3Cellipse cx='0' cy='-17' rx='6.5' ry='12' transform='rotate(180)' fill='%23F5B800' stroke='%23fff' stroke-width='1.5'/%3E%3Cellipse cx='0' cy='-17' rx='6.5' ry='12' transform='rotate(225)' fill='%23F5B800' stroke='%23fff' stroke-width='1.5'/%3E%3Cellipse cx='0' cy='-17' rx='6.5' ry='12' transform='rotate(270)' fill='%23F5B800' stroke='%23fff' stroke-width='1.5'/%3E%3Cellipse cx='0' cy='-17' rx='6.5' ry='12' transform='rotate(315)' fill='%23F5B800' stroke='%23fff' stroke-width='1.5'/%3E%3C/g%3E%3Ccircle cx='0' cy='0' r='12' fill='%236FA834' stroke='%23fff' stroke-width='2'/%3E%3Cpath d='M -9 -4 Q 0 6 9 -2' fill='none' stroke='%23fff' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E">
+<style>
+  :root{
+    --bg:#FFFDF4; --panel:#FFF7DC; --ink:#3A4A1E; --muted:#8A9460;
+    --yellow:#F5B800; --yellow-soft:#FFD84D; --green:#6FA834; --green-dark:#4C7A1F;
+    --line:#F0E3B0; --white:#FFFFFF;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{
+    background:var(--bg);color:var(--ink);
+    font-family:'Avenir Next','Segoe UI',system-ui,sans-serif;
+    display:flex;justify-content:center;
+    padding:20px 14px 32px;
+  }
+  .wrap{width:100%;max-width:560px}
+  .head{display:flex;align-items:center;gap:12px;margin-bottom:6px}
+  .eyebrow{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--green);font-weight:600;margin-bottom:2px}
+  h1{font-family:Georgia,'Times New Roman',serif;font-weight:700;font-size:25px;line-height:1.1;color:var(--green-dark)}
+  .intro{color:var(--muted);font-size:13.5px;line-height:1.45;margin:6px 0 16px}
+  .intro b{color:var(--green-dark)}
+  .blocks{display:flex;flex-direction:column;gap:8px}
+  .block{
+    background:var(--white);border:2px solid var(--line);border-radius:14px;
+    padding:10px 12px;transition:border-color .25s, background .25s;
+  }
+  .block.filled{background:var(--panel);border-color:var(--yellow)}
+  .b-head{display:flex;align-items:baseline;gap:8px;margin-bottom:2px}
+  .stepnum{
+    font-family:Georgia,serif;font-weight:700;font-size:13px;color:var(--white);
+    background:#C9CFAF;border-radius:50%;width:20px;height:20px;
+    display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;
+    transition:background .25s;
+  }
+  .block.filled .stepnum{background:var(--green)}
+  .prefix{font-size:15px;font-weight:700;color:var(--green-dark)}
+  .hint{font-size:12px;color:var(--muted);line-height:1.4;margin:0 0 8px 28px}
+  textarea{
+    display:block;width:100%;height:56px;
+    background:var(--white);border:1px solid var(--line);border-radius:10px;
+    color:var(--ink);font-family:inherit;font-size:14px;line-height:1.45;
+    padding:8px 10px;resize:none;overflow:auto;outline:none;
+  }
+  textarea::placeholder{color:#B8BE9C;font-style:italic}
+  textarea:focus{border-color:var(--yellow)}
+  .maak{
+    display:block;width:100%;margin-top:12px;
+    font-family:inherit;font-size:15.5px;font-weight:700;
+    color:var(--muted);background:var(--line);
+    border:2px solid var(--line);border-radius:12px;padding:13px 0;cursor:default;
+    transition:background .25s, color .25s, border-color .25s;
+  }
+  .maak.ready{color:var(--green-dark);background:var(--yellow-soft);border-color:var(--yellow);cursor:pointer}
+  .result{
+    display:none;background:var(--white);border:2px solid var(--green);
+    border-radius:14px;padding:14px;margin-top:12px;
+  }
+  .result.show{display:block}
+  .r-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+  .r-label{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--green);font-weight:700}
+  .copy{
+    font-family:inherit;font-size:12.5px;font-weight:700;color:var(--white);
+    background:var(--green-dark);border:none;border-radius:8px;padding:7px 12px;cursor:pointer;
+  }
+  .copy.ok{background:var(--green)}
+  .r-text{font-size:14.5px;line-height:1.6;user-select:text;-webkit-user-select:text}
+  @media (prefers-reduced-motion: reduce){.block,.stepnum,.maak,.petal,.heart{transition:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="head">
+    <svg width="64" height="64" viewBox="-32 -32 64 64" aria-hidden="true" id="flower"></svg>
+    <div>
+      <div class="eyebrow">Werken met AI</div>
+      <h1>Zonnebloem Generator</h1>
+    </div>
+  </div>
+  <p class="intro">Maak de vier zinnen af — bij elk vakje groeit je zonnebloem. Druk daarna op <b>Maak prompt</b>, kopieer, en plak 'm in je chat.</p>
+  <div class="blocks" id="blocks"></div>
+  <button class="maak" id="maakBtn">Eerst even zaaien hierboven 🌱</button>
+  <div class="result" id="result">
+    <div class="r-head">
+      <div class="r-label">Jouw prompt — vers geplukt</div>
+      <button class="copy" id="copyBtn">Kopieer</button>
+    </div>
+    <div class="r-text" id="rText"></div>
+  </div>
+</div>
+<script>
+const FIELDS = [
+  { key:"rol", step:"1", prefix:"Je bent een",
+    hint:"Kies je expert. Mag best een beetje gek, als het maar past.",
+    placeholder:"wereldberoemde chef-kok die óók van een snelle hap houdt" },
+  { key:"wil", step:"2", prefix:"Ik wil",
+    hint:"Zeg wat je écht wilt. AI kan veel, maar geen gedachten lezen.",
+    placeholder:"een weekmenu voor maandag tot en met vrijdag" },
+  { key:"voor", step:"3", prefix:"Het is bedoeld voor",
+    hint:"Voor wie is het? Dat scheelt een hoop moeilijke woorden (of juist niet).",
+    placeholder:"een druk gezin dat om 17:00 pas bedenkt wat het eten wordt" },
+  { key:"output", step:"4", prefix:"Ik verwacht als output",
+    hint:"Lijstje, tekstje, tabelletje? Zeg het, anders krijg je een verrassing.",
+    placeholder:"een vrolijk lijstje per dag, mét boodschappenlijstje erbij" },
+];
+const blocksEl = document.getElementById('blocks');
+FIELDS.forEach(f=>{
+  const div = document.createElement('div');
+  div.className = 'block';
+  div.id = 'blk-'+f.key;
+  div.innerHTML =
+    '<div class="b-head"><span class="stepnum">'+f.step+'</span>'+
+    '<span class="prefix">'+f.prefix+'&hellip;</span></div>'+
+    '<div class="hint">'+f.hint+'</div>'+
+    '<textarea id="in-'+f.key+'" rows="2" placeholder="bijv. '+f.placeholder+'"></textarea>';
+  blocksEl.appendChild(div);
+});
+// zonnebloem die groeit
+const flower = document.getElementById('flower');
+function drawFlower(filled){
+  let s = '';
+  const lit = filled*2;
+  for(let i=0;i<8;i++){
+    const angle = i*45;
+    const fill = i<lit ? '#F5B800' : '#EDE4C4';
+    s += '<ellipse class="petal" cx="0" cy="-17" rx="6.5" ry="12" transform="rotate('+angle+')" fill="'+fill+'" stroke="#fff" stroke-width="1.5" style="transition:fill .4s"/>';
+  }
+  s += '<circle class="heart" cx="0" cy="0" r="12" fill="'+(filled===4?'#6FA834':'#B9C48F')+'" stroke="#fff" stroke-width="2" style="transition:fill .4s"/>';
+  s += '<path d="M -9 -4 Q 0 6 9 -2" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"/>';
+  flower.innerHTML = s;
+}
+const maakBtn = document.getElementById('maakBtn');
+const result = document.getElementById('result');
+const rText = document.getElementById('rText');
+const copyBtn = document.getElementById('copyBtn');
+let prompt = '';
+function dot(t){ return /[.!?]$/.test(t.trim()) ? '' : '.'; }
+function filledCount(){
+  return FIELDS.filter(f=>document.getElementById('in-'+f.key).value.trim()).length;
+}
+function refresh(){
+  const n = filledCount();
+  FIELDS.forEach(f=>{
+    const has = document.getElementById('in-'+f.key).value.trim().length>0;
+    document.getElementById('blk-'+f.key).classList.toggle('filled', has);
+  });
+  drawFlower(n);
+  maakBtn.classList.toggle('ready', n>0);
+  maakBtn.textContent = n===0 ? 'Eerst even zaaien hierboven 🌱' : 'Maak prompt 🌻';
+}
+FIELDS.forEach(f=>{
+  document.getElementById('in-'+f.key).addEventListener('input', refresh);
+});
+maakBtn.addEventListener('click', ()=>{
+  if(filledCount()===0) return;
+  const parts = FIELDS
+    .filter(f=>document.getElementById('in-'+f.key).value.trim())
+    .map(f=>{
+      const v = document.getElementById('in-'+f.key).value.trim();
+      return f.prefix+' '+v+dot(v);
+    });
+  prompt = parts.join(' ');
+  rText.textContent = prompt;
+  result.classList.add('show');
+  copyBtn.textContent = 'Kopieer';
+  copyBtn.classList.remove('ok');
+});
+copyBtn.addEventListener('click', async ()=>{
+  if(!prompt) return;
+  let ok = false;
+  try{
+    await navigator.clipboard.writeText(prompt);
+    ok = true;
+  }catch(e){
+    try{
+      const ta = document.createElement('textarea');
+      ta.value = prompt;
+      ta.style.position='fixed'; ta.style.opacity='0';
+      document.body.appendChild(ta);
+      ta.select();
+      ok = document.execCommand('copy');
+      document.body.removeChild(ta);
+    }catch(_){}
+  }
+  copyBtn.textContent = ok ? 'Geplukt! 🌻' : 'Selecteer zelf';
+  copyBtn.classList.toggle('ok', ok);
+  setTimeout(()=>{ copyBtn.textContent='Kopieer'; copyBtn.classList.remove('ok'); }, 2200);
+});
+refresh();
+</script>
+</body>
+</html>
