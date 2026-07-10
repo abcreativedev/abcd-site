@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>mesh family</title>
+<meta name="description" content="Mesh Family. Avontuur. Familie. Verbinding.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23213A7A'/%3E%3Cpolygon points='50,12 86,31 86,69 50,88 14,69 14,31' fill='none' stroke='white' stroke-width='3'/%3E%3Ccircle cx='50' cy='12' r='8' fill='%23D86A4C'/%3E%3Ccircle cx='86' cy='31' r='8' fill='%23E2A442'/%3E%3Ccircle cx='86' cy='69' r='8' fill='%2384A86B'/%3E%3Ccircle cx='50' cy='88' r='8' fill='%232F9C92'/%3E%3Ccircle cx='14' cy='69' r='8' fill='%234E83B6'/%3E%3Ccircle cx='14' cy='31' r='8' fill='%2399668F'/%3E%3Ccircle cx='50' cy='50' r='9' fill='white'/%3E%3C/svg%3E">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#213A7A;color:#FFFFFF;font-family:'Inter','Segoe UI',system-ui,sans-serif;min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative}
+body::before{content:"";position:fixed;top:28%;left:50%;width:62vmin;height:62vmin;transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(120,150,220,.35),transparent 65%);pointer-events:none}
+.bg{position:fixed;pointer-events:none}
+main{text-align:center;padding:40px;position:relative;z-index:1}
+.logo{margin:0 auto 30px;overflow:visible}
+.logo circle.node{cursor:pointer;transition:all .2s}
+.panel{min-height:150px;max-width:560px;margin:0 auto 44px}
+.panel .label{display:block;font-size:13px;font-weight:700;letter-spacing:3px;text-transform:uppercase;margin-bottom:14px;transition:color .3s;color:#9fb0d8}
+.panel .accent{width:44px;height:3px;margin:0 auto 20px;border-radius:2px;background:#9fb0d8;transition:background .3s}
+.panel .body{font-size:20px;line-height:1.45;font-weight:300;transition:opacity .3s}
+.panel .body b{font-weight:300}
+.wordmark{font-size:25px;letter-spacing:1px;margin-bottom:16px}
+.wordmark b{font-weight:700}
+.wordmark span{font-weight:300;opacity:.85}
+.words{font-size:15px;letter-spacing:3px;font-weight:500}
+.words .dot{opacity:.5;padding:0 9px;font-weight:400}
+.legal{margin-top:34px;font-size:11px;letter-spacing:2px;opacity:.35}
+.legal{line-height:1.7}
+.legal a{color:inherit;text-decoration:none;letter-spacing:inherit;display:block;margin-bottom:9px}
+.legal a:hover{text-decoration:underline}
+</style>
+</head>
+<body>
+<main>
+<svg class="logo" width="230" height="230" viewBox="0 0 100 100">
+<polygon points="50,6 88,28 88,72 50,94 12,72 12,28" fill="none" stroke="#FFFFFF" stroke-width="1.6"/>
+<g stroke="#FFFFFF" stroke-width="1.2" opacity=".8">
+<line x1="50" y1="6" x2="50" y2="50"/><line x1="88" y1="28" x2="50" y2="50"/><line x1="88" y1="72" x2="50" y2="50"/><line x1="50" y1="94" x2="50" y2="50"/><line x1="12" y1="72" x2="50" y2="50"/><line x1="12" y1="28" x2="50" y2="50"/>
+</g>
+<circle class="node" cx="50" cy="6" r="5.5" fill="#D86A4C" data-label="Verbinding" data-text="Een middag samen op avontuur brengt een gezin <b>dichter bij elkaar</b> — dat is precies waar Mesh voor bestaat."/>
+<circle class="node" cx="88" cy="28" r="5.5" fill="#E2A442" data-label="Samen" data-text="Ouders en kinderen kruipen samen in het verhaal en lossen de raadsels op als <b>één team</b>."/>
+<circle class="node" cx="88" cy="72" r="5.5" fill="#84A86B" data-label="Werelden" data-text="<b>Elk avontuur, op elke locatie</b> — waar gezinnen ook samenkomen, maken wij er een belevenis van."/>
+<circle class="node" cx="50" cy="94" r="5.5" fill="#2F9C92" data-label="Structuur" data-text="Elk avontuur bouwen we uit <b>dezelfde bouwstenen</b>, zodat een nieuwe speurtocht snel klaarstaat."/>
+<circle class="node" cx="12" cy="72" r="5.5" fill="#4E83B6" data-label="Fundament" data-text="Onder alle merken ligt <b>één verhaalwereld en één engine</b> — het fundament waarop alles groeit."/>
+<circle class="node" cx="12" cy="28" r="5.5" fill="#99668F" data-label="Balans" data-text="De telefoon wijst de weg, maar het avontuur gebeurt <b>buiten</b> — bewegen, ontdekken en samen zijn."/>
+<circle class="node" cx="50" cy="50" r="6.5" fill="#FFFFFF" data-label="Kern" data-text="De <b>motor</b> waar verbeelding en techniek samenkomen — hier wordt een idee een echt avontuur."/>
+</svg>
+<div class="panel" id="panel"><span class="label">Ontdek</span><div class="accent"></div><div class="body">Beweeg over een node en ontdek waar Mesh voor staat.</div></div>
+<p class="wordmark"><b>mesh</b> <span>family</span></p>
+<p class="words"><span style="color:#E58a6f">Design</span><span class="dot">&middot;</span><span style="color:#EbB35f">Experience</span><span class="dot">&middot;</span><span style="color:#4fb3aa">Family</span></p>
+<p class="legal"><a href="mailto:info@meshfamily.nl">info@meshfamily.nl</a>&copy; 2026 MESH FAMILY</p>
+</main>
+<script>
+const panel=document.getElementById('panel');
+const label=panel.querySelector('.label');
+const accent=panel.querySelector('.accent');
+const body=panel.querySelector('.body');
+const nodes=document.querySelectorAll('.node');
+function activate(n){
+  const col=n.getAttribute('fill');
+  nodes.forEach(m=>{m.setAttribute('r','5.5');m.removeAttribute('stroke');});
+  n.setAttribute('r','8');n.setAttribute('stroke','#FFFFFF');n.setAttribute('stroke-width','2.5');
+  label.textContent=n.dataset.label;label.style.color=col;
+  accent.style.background=col;body.innerHTML=n.dataset.text;
+}
+nodes.forEach(n=>{
+  n.addEventListener('mouseenter',()=>activate(n));
+  n.addEventListener('click',()=>activate(n));
+  n.addEventListener('touchstart',()=>activate(n),{passive:true});
+});
+let s=42;
+const rnd=()=>{s=Math.sin(s)*10000;return s-Math.floor(s);};
+const P='50,6 88,28 88,72 50,94 12,72 12,28';
+let i=0;
+for(let r=0;r<7&&i<35;r++){
+ for(let c=0;c<9&&i<35;c++){
+  if(c>=3&&c<=5&&r>=1&&r<=5){continue;}
+  i++;
+  const size=(3+rnd()*rnd()*10).toFixed(1);
+  const left=(c*11.1+0.5+rnd()*3).toFixed(1);
+  const top=(r*14.3+0.5+rnd()*4).toFixed(1);
+  const op=(0.09+rnd()*0.07).toFixed(3);
+  const el=document.createElementNS('http://www.w3.org/2000/svg','svg');
+  el.setAttribute('class','bg');el.setAttribute('viewBox','0 0 100 100');
+  el.setAttribute('style','left:'+left+'vw;top:'+top+'vh;width:'+size+'vmin;height:'+size+'vmin');
+  el.innerHTML='<polygon points="'+P+'" fill="none" stroke="#FFFFFF" stroke-opacity="'+op+'" stroke-width="1.5"/>';
+  document.body.insertBefore(el,document.querySelector('main'));
+ }
+}
+</script>
+</body>
+</html>
