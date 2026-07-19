@@ -9,7 +9,9 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{background:#F8F5EF;color:#173F35;font-family:'Inter','Segoe UI',system-ui,sans-serif;min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative}
-.bg{position:fixed;pointer-events:none}
+.bg{position:fixed;pointer-events:none;will-change:opacity,transform}
+@keyframes hexfloat{0%,100%{opacity:.08;transform:translate(0,0) rotate(0deg)}50%{opacity:1;transform:translate(var(--dx,0),var(--dy,0)) rotate(var(--dr,0deg))}}
+@media(prefers-reduced-motion:reduce){.bg{animation:none!important;opacity:.6}}
 main{text-align:center;padding:40px;position:relative;z-index:1}
 .hex{margin:0 auto 36px}
 .letters{font-weight:600;fill:#173F35}
@@ -51,12 +53,17 @@ const size=(2.5+rnd()*rnd()*7).toFixed(1);
 const left=(c*11.1+0.5+rnd()*3).toFixed(1);
 const top=(r*14.3+0.5+rnd()*4).toFixed(1);
 const kleur=rnd()>.5?'#C6A15B':'#173F35';
-const op=(0.05+rnd()*0.05).toFixed(3);
+const op=(0.16+rnd()*0.20).toFixed(3);
+const dx=(Math.random()*14-7).toFixed(1)+'vmin';
+const dy=(Math.random()*14-7).toFixed(1)+'vmin';
+const dr=(Math.random()*36-18).toFixed(1)+'deg';
+const dur=(8+Math.random()*10).toFixed(1);
+const delay=(-Math.random()*15).toFixed(1);
 const el=document.createElementNS('http://www.w3.org/2000/svg','svg');
 el.setAttribute('class','bg');
 el.setAttribute('viewBox','0 0 100 100');
-el.setAttribute('style','left:'+left+'vw;top:'+top+'vh;width:'+size+'vmin;height:'+size+'vmin');
-el.innerHTML='<polygon points="'+P+'" fill="none" stroke="'+kleur+'" stroke-opacity="'+op+'" stroke-width="1.5"/>';
+el.setAttribute('style','left:'+left+'vw;top:'+top+'vh;width:'+size+'vmin;height:'+size+'vmin;--dx:'+dx+';--dy:'+dy+';--dr:'+dr+';animation:hexfloat '+dur+'s ease-in-out '+delay+'s infinite');
+el.innerHTML='<polygon points="'+P+'" fill="none" stroke="'+kleur+'" stroke-opacity="'+op+'" stroke-width="1.8"/>';
 document.body.insertBefore(el,document.querySelector('main'));
 }
 }
